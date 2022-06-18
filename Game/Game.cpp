@@ -1,21 +1,38 @@
-﻿// Game.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include "pch.h"
+﻿#include "pch.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
+
+#define RECT_SIZE 50.f
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    sf::RenderWindow window(sf::VideoMode(600, 400), "Game", sf::Style::Titlebar && sf::Style::Close);
+    sf::Vector2f rectSize(RECT_SIZE, RECT_SIZE);
+    sf::RectangleShape rectangle(rectSize);
+
+    rectangle.setFillColor(sf::Color::Green);
+    sf::Vector2f mousePosition;
+
+
+    while (window.isOpen()) 
+    {
+        sf::Event ev;
+        while (window.pollEvent(ev)) {
+            if (ev.type == sf::Event::Closed)
+            {
+                window.close();
+            }
+        }
+
+        mousePosition.x = sf::Mouse::getPosition(window).x;
+        mousePosition.y = sf::Mouse::getPosition(window).y;
+        rectangle.setPosition(mousePosition);
+        sf::Vector2f rectOrigin(RECT_SIZE / 2, RECT_SIZE / 2);
+        rectangle.setOrigin(rectOrigin);
+
+        window.clear();
+        window.draw(rectangle);
+        window.display();
+    }
 }
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.

@@ -1,1 +1,3 @@
-Game
+SFML project
+Trying to use all, that SFML contains, such as graphic,
+audio, network and other stuff...
